@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DivList</title>
+    <style>
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            background-color: red;
+        }
+
+        .flex-container > div {
+            background-color: #f1f1f1; 
+            margin: 10px; 
+            padding: 20px; 
+            font-size: 30px;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 600px) { 
+            .flex-container {
+                flex-direction: column;
+                background-color: green;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h3>Vydehi Ramineni Builds List with Divs</h3>
+    <div class="flex-container" id="target">
+        <div class="divlist">row item 1</div>   
+        <div class="divlist">row item 2</div>  
+        <div class="divlist">row item 3</div>  
+    </div>
+
+    <p>Press the button to create a new element of type div and then add it to the container.</p>
+    
+    <input type="text" id="inputText" placeholder="Enter new item" />
+    <button onclick="addToEnd()">Add End</button>
+    <button onclick="addFront()">Add Front</button>
+    <button onclick="remove()">Remove</button>
+
+    <script>
+        function addToEnd() {
+            // Get the value from the input
+            const inputValue = document.getElementById('inputText').value;
+            
+            // Create the new div element
+            let newElement = document.createElement("div");
+            newElement.innerHTML = inputValue; // Set the innerHTML to the input value
+            newElement.className = "divlist"; // Set class name
+            
+            // Append the new element to the container
+            let container = document.getElementById('target');
+            container.appendChild(newElement);
+            
+            // Clear the input field
+            document.getElementById('inputText').value = '';
+
+            // Remove the middle item if there are more than 3 items
+            let items = document.getElementsByClassName('divlist');
+            if (items.length > 3) {
+                let middleIndex = Math.floor(items.length / 2);
+                items[middleIndex].remove();
+            }
+        }
+
+        function addFront() {
+            // Get the value from the input
+            const inputValue = document.getElementById('inputText').value;
+            
+            // Create the new div element
+            let newElement = document.createElement("div");
+            newElement.innerHTML = inputValue; // Set the innerHTML to the input value
+            newElement.className = "divlist"; // Set class name
+            
+            // Get the container div
+            let container = document.getElementById('target');
+            // Add the new element to the front
+            container.insertBefore(newElement, container.firstChild);
+            
+            // Clear the input field
+            document.getElementById('inputText').value = '';
+        }
+
+        function remove() {
+            // Get all divlist items
+            let divListItems = document.getElementsByClassName('divlist');
+            let length = divListItems.length;
+
+            // Remove the middle element if there's at least one item
+            if (length > 0) {
+                let middleIndex = Math.floor(length / 2);
+                divListItems[middleIndex].remove();
+            }
+        }
+    </script>
+</body>
+</html>

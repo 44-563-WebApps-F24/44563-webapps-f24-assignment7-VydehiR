@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<title> Precision</title>
+<title>Precision</title>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <h3>Vydehi Ramineni Speed Check</h3>
@@ -54,10 +54,12 @@
       countdownStarted = true; // Set countdown flag
       document.getElementById('target').innerText = 'Your time: '; // Reset target time
 
+      const countdownValue = Math.floor(Math.random() * 9) + 2; // Random value between 2 and 10
+
       // Countdown loop
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < countdownValue; i++) {
         setTimeout(() => {
-          document.getElementById('countdown').innerText = `Count: ${5 - i}`; // Update countdown
+          document.getElementById('countdown').innerText = `Count: ${countdownValue - i}`; // Update countdown
         }, i * 1000); // Update every second
       }
 
@@ -70,13 +72,13 @@
           document.getElementById('target').innerText = `Time was ${elapsedTime} ms`;
         }
         countdownStarted = false; // Reset flag after completion
-      }, 5000); // Check after 5 seconds
+      }, countdownValue * 1000); // Check after countdownValue seconds
     }
 
     document.getElementById('startButton').onclick = startTime; // Set onclick for start button
   </script>
-  <a href="safari.html">safari</a><br>
-  <a href="divlist.html">divList</a>
+  <a href="safari.html">Safari</a><br>
+  <a href="divlist.html">DivList</a>
 </body>
 
 </html>

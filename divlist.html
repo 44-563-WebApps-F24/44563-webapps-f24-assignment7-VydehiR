@@ -38,26 +38,19 @@
     <input type="text" id="inputText" placeholder="Enter new item" />
     <button onclick="addToEnd()">Add End</button>
     <button onclick="addFront()">Add Front</button>
-    <button onclick="remove()">Remove</button><br>
+    <button onclick="remove()">Remove</button>
+    <button onclick="swapItems()">Swap</button><br>
 
     <script>
         function addToEnd() {
-            // Get the value from the input
             const inputValue = document.getElementById('inputText').value;
-            
-            // Create the new div element
             let newElement = document.createElement("div");
-            newElement.innerHTML = inputValue; // Set the innerHTML to the input value
-            newElement.className = "divlist"; // Set class name
-            
-            // Append the new element to the container
+            newElement.innerHTML = inputValue; 
+            newElement.className = "divlist"; 
             let container = document.getElementById('target');
             container.appendChild(newElement);
-            
-            // Clear the input field
             document.getElementById('inputText').value = '';
 
-            // Remove the middle item if there are more than 3 items
             let items = document.getElementsByClassName('divlist');
             if (items.length > 3) {
                 let middleIndex = Math.floor(items.length / 2);
@@ -66,36 +59,63 @@
         }
 
         function addFront() {
-            // Get the value from the input
             const inputValue = document.getElementById('inputText').value;
-            
-            // Create the new div element
             let newElement = document.createElement("div");
-            newElement.innerHTML = inputValue; // Set the innerHTML to the input value
-            newElement.className = "divlist"; // Set class name
-            
-            // Get the container div
+            newElement.innerHTML = inputValue; 
+            newElement.className = "divlist"; 
             let container = document.getElementById('target');
-            // Add the new element to the front
             container.insertBefore(newElement, container.firstChild);
-            
-            // Clear the input field
             document.getElementById('inputText').value = '';
         }
 
         function remove() {
-            // Get all divlist items
             let divListItems = document.getElementsByClassName('divlist');
             let length = divListItems.length;
-
-            // Remove the middle element if there's at least one item
             if (length > 0) {
                 let middleIndex = Math.floor(length / 2);
                 divListItems[middleIndex].remove();
             }
         }
+
+        function swapItems() {
+            const items = document.querySelectorAll('.divlist');
+            const length = items.length;
+
+            if (length < 2) {
+                alert("Not enough items to swap!");
+                return;
+            }
+
+            let index1 = Math.floor(Math.random() * length);
+            let index2 = Math.floor(Math.random() * length);
+
+            // Ensure we don't select the same index or adjacent elements
+            while (index1 === index2 || Math.abs(index1 - index2) === 1) {
+                index2 = Math.floor(Math.random() * length);
+            }
+
+            const item1 = items[index1];
+            const item2 = items[index2];
+
+            // Swap items
+            const item1Clone = item1.cloneNode(true);
+            const item2Clone = item2.cloneNode(true);
+
+            // Remove original items
+            item1.remove();
+            item2.remove();
+
+            // Insert items back at swapped positions
+            if (index1 < index2) {
+                document.getElementById('target').insertBefore(item2Clone, items[index2]);
+                document.getElementById('target').insertBefore(item1Clone, items[index2]);
+            } else {
+                document.getElementById('target').insertBefore(item1Clone, items[index1]);
+                document.getElementById('target').insertBefore(item2Clone, items[index1]);
+            }
+        }
     </script>
-	<a href="precision.html">precesion</a><br>
-	<a href="safari.html">safari</a>
+    <a href="precision.html">Precision</a><br>
+    <a href="safari.html">Safari</a>
 </body>
 </html>
